@@ -1,0 +1,70 @@
+﻿@model PagedList.IPagedList<tuan04_nguyenhuuthuan.Models.Sach>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>HUTECH SACH</h2>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel panel-heading">
+                    @item.tensach
+                </div>
+                <div class="panel-body">
+                    <p><strong>Giá: </strong>@item.giaban</p>
+                    <p><strong>Ngày cập nhật: </strong>@item.ngaycapnhat</p>
+                    <p><strong>Số lượng tồn: </strong>@item.soluongton</p>
+                    <p><img src="@item.hinh" alt="hinh thumnail" width="300px",hight="300px"></p>
+                </div>
+                <div class="panel-footer clearfix">
+                    <div class="pull-right">
+                        <div class="DatMua">
+                            <a class="btn btn-success" href="@Url.Action("ThemGioHang", "GioHang",
+                            new { @id = item.masach, @strURL = Request.Url.ToString() })">Đặt mua</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div>
+    <div>
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) /
+        @Model.PageCount
+    </div>
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new
+        {
+            page = page
+        }))
+    </div>
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
+<style type="text/css">
+    #mau-nut a {
+        clear: both;
+        background-color: orange;
+        color: snow;
+    }
+
+        #mau-nut a:hover {
+            background-color: darkcyan;
+            color: snow;
+        }
+</style>
+
+<style>
+    .show-read-more .more-text {
+        display: none;
+    }
+</style>9
